@@ -1,0 +1,334 @@
+/* Room-specific states and pixel-art gameplay feedback. */
+
+.room {
+  --room-decor-offset: 0px;
+}
+
+.room .hotspot,
+.room .door,
+.room .easter-egg,
+.room .mix-info-marker,
+.room .tech-info-marker {
+  translate: 0 var(--room-decor-offset);
+}
+
+.room:has(.hotspot.solved) .room-title {
+  border-color: rgba(128, 255, 90, 0.56);
+  box-shadow: 0 0 18px rgba(128, 255, 90, 0.16), var(--pixel-shadow);
+}
+
+.room-control {
+  image-rendering: pixelated;
+  background:
+    linear-gradient(rgba(4, 8, 13, 0.28), rgba(4, 8, 13, 0.34)),
+    radial-gradient(circle at 50% 38%, rgba(128, 255, 90, 0.12), transparent 44%),
+    url("assets/control-room-4x3.png") center -16px / cover no-repeat;
+}
+
+.room-control::before {
+  display: block;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 8px 8px,
+    linear-gradient(0deg, rgba(0, 0, 0, 0.16) 1px, transparent 1px) 0 0 / 8px 8px;
+  opacity: 0.42;
+  mix-blend-mode: soft-light;
+}
+
+.room-control::after {
+  display: block;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(2, 6, 11, 0), rgba(2, 6, 11, 0.18)),
+    radial-gradient(circle at 50% 46%, transparent 0 42%, rgba(0, 0, 0, 0.24) 78%);
+}
+
+.room-mixroom {
+  image-rendering: pixelated;
+  background:
+    linear-gradient(rgba(4, 8, 13, 0.18), rgba(4, 8, 13, 0.28)),
+    radial-gradient(circle at 52% 38%, rgba(90, 169, 230, 0.12), transparent 48%),
+    url("assets/mix-room.png") center -16px / cover no-repeat;
+}
+
+.room-mixroom::before {
+  display: block;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px) 0 0 / 8px 8px,
+    linear-gradient(0deg, rgba(0, 0, 0, 0.14) 1px, transparent 1px) 0 0 / 8px 8px;
+  opacity: 0.34;
+  mix-blend-mode: soft-light;
+}
+
+.room-mixroom::after {
+  display: block;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(2, 6, 11, 0), rgba(2, 6, 11, 0.2)),
+    radial-gradient(circle at 50% 44%, transparent 0 48%, rgba(0, 0, 0, 0.2) 82%);
+}
+
+.mix-info-marker {
+  position: absolute;
+  z-index: 4;
+  display: none;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: var(--pixel-line) solid var(--pixel-border);
+  color: #10141b;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.22) 1px, transparent 1px) 0 0 / 5px 5px,
+    #ffcf5a;
+  box-shadow: var(--pixel-shadow), 0 0 18px rgba(255, 207, 90, 0.24);
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: 1;
+  cursor: help;
+  image-rendering: pixelated;
+}
+
+.tech-info-marker {
+  position: absolute;
+  z-index: 4;
+  display: none;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: var(--pixel-line) solid var(--pixel-border);
+  color: #10141b;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.22) 1px, transparent 1px) 0 0 / 5px 5px,
+    #ffcf5a;
+  box-shadow: var(--pixel-shadow), 0 0 18px rgba(255, 207, 90, 0.24);
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: 1;
+  cursor: help;
+  image-rendering: pixelated;
+}
+
+.room-mixroom:has(.hotspot-cards.solved) .mix-info-marker {
+  display: grid;
+}
+
+.room-laundry:has(.hotspot-programmer.solved) .tech-info-marker {
+  display: grid;
+}
+
+.mix-info-marker:hover,
+.mix-info-marker:focus-visible,
+.mix-info-marker.info-marker-seen,
+.tech-info-marker:hover,
+.tech-info-marker:focus-visible,
+.tech-info-marker.info-marker-seen {
+  color: #102019;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.25) 1px, transparent 1px) 0 0 / 5px 5px,
+    #80ff5a;
+  box-shadow: var(--pixel-shadow), 0 0 22px rgba(128, 255, 90, 0.55);
+  outline: 3px solid rgba(128, 255, 90, 0.42);
+  transform: translateY(-2px);
+}
+
+.mix-info-tooltip,
+.tech-info-tooltip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  width: max-content;
+  max-width: 210px;
+  padding: 8px 10px;
+  border: var(--pixel-line) solid var(--pixel-border);
+  color: var(--text);
+  background:
+    linear-gradient(90deg, rgba(128, 255, 90, 0.08) 1px, transparent 1px) 0 0 / 6px 6px,
+    #101720;
+  box-shadow: var(--pixel-shadow);
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1.2;
+  text-align: left;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 6px);
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+.mix-info-tooltip::after,
+.tech-info-tooltip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 10px;
+  height: 10px;
+  border-right: var(--pixel-line) solid var(--pixel-border);
+  border-bottom: var(--pixel-line) solid var(--pixel-border);
+  background: #101720;
+  transform: translate(-50%, -4px) rotate(45deg);
+}
+
+.mix-info-marker:hover .mix-info-tooltip,
+.mix-info-marker:focus-visible .mix-info-tooltip,
+.tech-info-marker:hover .tech-info-tooltip,
+.tech-info-marker:focus-visible .tech-info-tooltip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.mix-info-wind {
+  left: 24%;
+  top: 42%;
+}
+
+.mix-info-nuclear {
+  left: 53%;
+  top: 44%;
+}
+
+.mix-info-solar {
+  left: 79%;
+  top: 69%;
+}
+
+.mix-info-hydro {
+  left: 37%;
+  top: 82%;
+}
+
+.tech-info-washer {
+  left: 34%;
+  top: 62%;
+}
+
+.tech-info-dryer {
+  left: 48%;
+  top: 62%;
+}
+
+.tech-info-water {
+  left: 66%;
+  top: 48%;
+}
+
+.tech-info-car {
+  left: 84%;
+  top: 58%;
+}
+
+.room-weatherroom {
+  image-rendering: pixelated;
+  background:
+    linear-gradient(rgba(4, 8, 13, 0.18), rgba(4, 8, 13, 0.3)),
+    radial-gradient(circle at 52% 38%, rgba(90, 169, 230, 0.14), transparent 48%),
+    url("assets/weather-room.png") center -16px / cover no-repeat;
+}
+
+.room-weatherroom::before {
+  display: block;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px) 0 0 / 8px 8px,
+    linear-gradient(0deg, rgba(0, 0, 0, 0.16) 1px, transparent 1px) 0 0 / 8px 8px;
+  opacity: 0.36;
+  mix-blend-mode: soft-light;
+}
+
+.room-weatherroom::after {
+  display: block;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(2, 6, 11, 0), rgba(2, 6, 11, 0.22)),
+    radial-gradient(circle at 50% 44%, transparent 0 48%, rgba(0, 0, 0, 0.22) 82%);
+}
+
+.room-laundry {
+  image-rendering: pixelated;
+  background:
+    linear-gradient(rgba(4, 8, 13, 0.16), rgba(4, 8, 13, 0.28)),
+    radial-gradient(circle at 52% 42%, rgba(79, 209, 165, 0.12), transparent 48%),
+    url("assets/technical-room.png") center -16px / cover no-repeat;
+}
+
+.room-laundry::before {
+  display: block;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px) 0 0 / 8px 8px,
+    linear-gradient(0deg, rgba(0, 0, 0, 0.14) 1px, transparent 1px) 0 0 / 8px 8px;
+  opacity: 0.34;
+  mix-blend-mode: soft-light;
+}
+
+.room-laundry::after {
+  display: block;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(2, 6, 11, 0), rgba(2, 6, 11, 0.2)),
+    radial-gradient(circle at 50% 46%, transparent 0 48%, rgba(0, 0, 0, 0.22) 82%);
+}
+
+.room-electrical {
+  image-rendering: pixelated;
+  background:
+    linear-gradient(rgba(4, 8, 13, 0.18), rgba(4, 8, 13, 0.32)),
+    radial-gradient(circle at 52% 42%, rgba(128, 255, 90, 0.14), transparent 48%),
+    url("assets/final-room.png") center -16px / cover no-repeat;
+}
+
+.room-electrical::before {
+  display: block;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.032) 1px, transparent 1px) 0 0 / 8px 8px,
+    linear-gradient(0deg, rgba(0, 0, 0, 0.16) 1px, transparent 1px) 0 0 / 8px 8px;
+  opacity: 0.35;
+  mix-blend-mode: soft-light;
+}
+
+.room-electrical::after {
+  display: block;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(2, 6, 11, 0), rgba(2, 6, 11, 0.22)),
+    radial-gradient(circle at 50% 46%, transparent 0 48%, rgba(0, 0, 0, 0.24) 82%);
+}
+
+.hotspot.solved::after {
+  content: "OK";
+  position: absolute;
+  right: -10px;
+  top: -12px;
+  display: grid;
+  place-items: center;
+  min-width: 34px;
+  min-height: 24px;
+  border: var(--pixel-line) solid var(--pixel-border);
+  color: #102019;
+  background: #80ff5a;
+  font-size: 0.72rem;
+  font-weight: 900;
+  box-shadow: var(--pixel-shadow);
+}

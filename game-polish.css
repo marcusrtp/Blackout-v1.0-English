@@ -1,0 +1,327 @@
+/* Jury tools and victory sequence live here so the core stylesheet stays lighter. */
+
+.jury-tools {
+  padding: 10px;
+  border-color: rgba(128, 255, 90, 0.4);
+  background:
+    linear-gradient(90deg, rgba(128, 255, 90, 0.055) 1px, transparent 1px) 0 0 / 8px 8px,
+    rgba(20, 34, 28, 0.86);
+}
+
+.jury-tools.hidden {
+  display: none;
+}
+
+.jury-tools p {
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: 0.78rem;
+  line-height: 1.28;
+}
+
+.jury-tools .jury-room-label {
+  margin: 8px 0 5px;
+  color: #80ff5a;
+  font-size: 0.68rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.jury-room-grid,
+.jury-action-grid {
+  display: grid;
+  gap: 6px;
+}
+
+.jury-room-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin-bottom: 6px;
+}
+
+.jury-action-grid {
+  grid-template-columns: 1fr;
+}
+
+.jury-tools button {
+  min-height: 28px;
+  padding: 4px 5px;
+  border: var(--pixel-line) solid var(--pixel-border);
+  border-radius: 0;
+  color: var(--text);
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px) 0 0 / 6px 6px,
+    #202b38;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.28);
+  cursor: pointer;
+  font-size: 0.7rem;
+  font-weight: 800;
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.jury-action-grid button {
+  min-height: 36px;
+  padding: 7px 8px;
+  font-size: 0.72rem;
+  line-height: 1.16;
+}
+
+.jury-tools button:hover,
+.jury-tools button:focus-visible,
+.jury-tools button.active {
+  color: #102019;
+  background: var(--accent);
+}
+
+.jury-tools button:disabled {
+  cursor: default;
+  opacity: 0.56;
+}
+
+.jury-tools button.locked {
+  color: rgba(232, 241, 255, 0.46);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px) 0 0 / 6px 6px,
+    rgba(9, 12, 18, 0.74);
+  border-color: rgba(255, 255, 255, 0.14);
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+.jury-tools button.locked:hover,
+.jury-tools button.locked:focus-visible {
+  color: rgba(232, 241, 255, 0.46);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px) 0 0 / 6px 6px,
+    rgba(9, 12, 18, 0.74);
+  outline: none;
+}
+
+.jury-tools button.jury-action-complete,
+.jury-tools button.jury-action-complete:hover,
+.jury-tools button.jury-action-complete:focus-visible {
+  color: rgba(232, 241, 255, 0.5);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 6px 6px,
+    #202834;
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: none;
+  cursor: default;
+  opacity: 0.68;
+  outline: none;
+}
+
+.jury-tools #juryVictoryButton {
+  border-color: rgba(128, 255, 90, 0.74);
+  color: #102019;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.16) 1px, transparent 1px) 0 0 / 6px 6px,
+    #80ff5a;
+  box-shadow: 0 0 18px rgba(128, 255, 90, 0.22), 2px 2px 0 rgba(0, 0, 0, 0.28);
+}
+
+.jury-tools #juryVictoryButton:hover,
+.jury-tools #juryVictoryButton:focus-visible {
+  color: #102019;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.22) 1px, transparent 1px) 0 0 / 6px 6px,
+    #9cff7a;
+}
+
+.jury-tools .jury-defeat-button {
+  border-color: rgba(239, 91, 91, 0.72);
+  color: #fff7f2;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px) 0 0 / 6px 6px,
+    #8f1e29;
+}
+
+.jury-tools .jury-defeat-button:hover,
+.jury-tools .jury-defeat-button:focus-visible {
+  color: #fff7f2;
+  background: #c91624;
+}
+
+.victory-panel {
+  display: grid;
+  gap: 12px;
+}
+
+#endText {
+  color: var(--muted);
+  line-height: 1.34;
+}
+
+.end-screen > div:not(.confetti-layer) {
+  width: min(1260px, calc(100vw - 22px));
+  max-height: calc(100vh - 22px);
+  padding: clamp(16px, 2.2vw, 26px);
+  overflow: auto;
+}
+
+.end-screen h2 {
+  margin: 2px 0 10px;
+  font-size: clamp(1.55rem, 2.45vw, 2.2rem);
+}
+
+.end-screen .eyebrow {
+  line-height: 1;
+}
+
+.victory-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(170px, 0.45fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.victory-stage-compact {
+  grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
+  align-items: center;
+}
+
+.victory-frequency-card {
+  display: grid;
+  align-content: center;
+  gap: 5px;
+  min-height: 92px;
+  padding: 12px 14px;
+  border: var(--pixel-line) solid var(--pixel-border);
+  color: #102019;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,0.055) 1px, transparent 1px) 0 0 / 8px 8px,
+    #80ff5a;
+  box-shadow: 0 0 32px rgba(128, 255, 90, 0.22), var(--pixel-shadow);
+}
+
+.victory-frequency-card span {
+  color: #102019;
+  font-size: 0.68rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.victory-frequency-counter {
+  color: #102019;
+  font-size: clamp(1.85rem, 3vw, 2.75rem);
+  font-weight: 900;
+  line-height: 0.95;
+}
+
+.victory-frequency-counter.locked {
+  animation: locked-frequency 0.7s steps(2, end) 2;
+}
+
+.victory-lead {
+  font-size: clamp(0.98rem, 1.45vw, 1.2rem);
+  font-weight: 800;
+}
+
+.victory-conclusion {
+  display: block;
+  padding: 12px 14px;
+  border: var(--pixel-line) solid var(--pixel-border);
+  color: #102019;
+  background: var(--accent-2);
+  font-size: clamp(1rem, 1.45vw, 1.22rem);
+  font-weight: 900;
+  box-shadow: var(--pixel-shadow);
+}
+
+.end-screen .victory-report {
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.end-screen .victory-report span {
+  min-height: 62px;
+  padding: 12px 14px;
+  font-size: 0.96rem;
+}
+
+.end-screen .victory-report strong {
+  font-size: 1.3rem;
+}
+
+.end-screen .victory-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.end-screen .victory-grid span {
+  min-height: 132px;
+  padding: 13px 14px;
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+
+.end-screen .victory-grid strong {
+  margin-bottom: 8px;
+  font-size: 1.02rem;
+}
+
+.end-screen .victory-code {
+  width: 100%;
+  margin-top: 12px;
+  padding: 11px 14px;
+  font-size: 1rem;
+}
+
+.end-screen #restartButton {
+  min-height: 42px;
+  margin-top: 14px;
+  padding: 0 20px;
+}
+
+@media (max-height: 760px) {
+  .end-screen > div:not(.confetti-layer) {
+    padding: 12px;
+  }
+
+  .victory-frequency-card {
+    min-height: 72px;
+  }
+
+  .victory-lead,
+  .end-screen .victory-code,
+  .victory-conclusion {
+    font-size: 0.9rem;
+  }
+
+  .end-screen .victory-grid span {
+    min-height: 112px;
+    padding: 9px;
+    font-size: 0.82rem;
+  }
+}
+
+@keyframes locked-frequency {
+  50% {
+    filter: brightness(1.35);
+    transform: translateY(-2px);
+  }
+}
+
+@media (max-width: 760px) {
+  .victory-stage {
+    grid-template-columns: 1fr;
+  }
+
+  .end-screen > div:not(.confetti-layer) {
+    overflow: auto;
+  }
+
+  .end-screen .victory-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .jury-room-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .jury-action-grid {
+    grid-template-columns: 1fr;
+  }
+}

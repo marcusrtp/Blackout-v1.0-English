@@ -1,0 +1,343 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blackout</title>
+    <meta name="description" content="An educational escape game about the power grid, the energy mix, and blackout risk. You have 12 minutes to recover the final code and restore the frequency to 95 Hz.">
+    <meta name="theme-color" content="#101720">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Blackout - Energy Escape Game">
+    <meta property="og:description" content="Explore the rooms, solve energy mix puzzles, find easter eggs, and prevent the blackout before the timer runs out.">
+    <meta property="og:image" content="assets/Jaquette_Blackout.png">
+    <meta property="og:image:alt" content="Blackout game cover, an educational escape game about the power grid.">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blackout - Energy Escape Game">
+    <meta name="twitter:description" content="12 minutes to save the power grid: puzzles, energy mix, easter eggs, and victory at 95 Hz.">
+    <meta name="twitter:image" content="assets/Jaquette_Blackout.png">
+    <link rel="stylesheet" href="styles.css?v=english-version">
+    <link rel="stylesheet" href="rooms.css?v=english-version">
+    <link rel="stylesheet" href="game-polish.css?v=english-version">
+  </head>
+  <body>
+    <section class="start-screen" id="startScreen" aria-labelledby="startTitle">
+      <aside class="creator-banner" id="creatorBanner" aria-label="Creator message">
+        <p>This project was built by a beginner who had never had the opportunity to use Codex before!</p>
+        <button class="icon-button" id="closeCreatorBanner" type="button" aria-label="Close banner">x</button>
+      </aside>
+      <div class="start-panel">
+        <p class="eyebrow">VivaTech 2026 Hackathon</p>
+        <h1 id="startTitle">Blackout</h1>
+        <p class="start-pitch">
+          The <strong>city power grid</strong> is under pressure, the <strong>frequency is dropping</strong>, and the city is heading toward a <strong>major outage</strong>.
+          We have <strong>12 minutes</strong> to explore the rooms, solve <strong>energy mix</strong> puzzles, and collect the <strong>final code fragments</strong>.
+          Find the <strong>hidden easter eggs</strong>, enter the <strong>code</strong>, and restore <strong>95 Hz</strong> before the shutdown.
+        </p>
+        <div class="start-stats" aria-label="Game objectives">
+          <span>4 grid puzzles</span>
+          <span>3 easter eggs</span>
+          <span>1 final code</span>
+        </div>
+        <div class="jury-promise" aria-label="Educational promise">
+          <strong>Objective</strong>
+          <span>Understand in minutes why a <strong>power grid</strong> must always balance <strong>production</strong> and <strong>consumption</strong>.</span>
+        </div>
+        <p class="sponsor-heading">Event sponsors</p>
+        <div class="sponsor-strip" aria-label="Event sponsors">
+          <figure>
+            <img src="assets/sponsor-anis-ayari.png" alt="Anis Ayari">
+            <figcaption>Anis Ayari</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/easter-openai.png" alt="OpenAI">
+            <figcaption>OpenAI</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/easter-engie.png" alt="Engie">
+            <figcaption>Engie</figcaption>
+          </figure>
+        </div>
+        <div class="credits-card" aria-label="Credits and making-of">
+          <strong>Credits & making-of</strong>
+          <span>Prototype imagined for the VivaTech 2026 Hackathon and built entirely with Codex. Enhanced with easter eggs and a jury presentation mode. <strong>Huge thanks for this incredible opportunity to OpenAI, Engie, and Anis Ayari (DefendIntelligence). ❤️❤️</strong></span>
+        </div>
+        <div class="start-actions">
+          <button class="primary-button start-button" id="startButton" type="button" disabled>Start</button>
+          <button class="secondary-button start-button demo-button" id="demoButton" type="button" disabled>Jury mode</button>
+        </div>
+      </div>
+    </section>
+
+    <main class="game-shell">
+      <header class="hud" aria-label="Grid status">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <div>
+            <p class="eyebrow">Grid alert</p>
+            <h1>Blackout</h1>
+          </div>
+        </div>
+
+        <button class="secondary-button home-button" id="homeButton" type="button">Home</button>
+        <span class="mode-badge hidden" id="modeBadge">Jury mode</span>
+
+        <div class="meters">
+          <section class="meter-card timer-card" aria-label="Time left">
+            <span class="label">Time</span>
+            <strong id="timer">12:00</strong>
+          </section>
+          <section class="meter-card" aria-label="Grid frequency">
+            <span class="label">Frequency</span>
+            <strong id="frequency">74,0 Hz</strong>
+          </section>
+          <section class="meter-card gauge-card" aria-label="Overload gauge">
+            <span class="label">Overload</span>
+            <div class="gauge-track">
+              <span id="gaugeFill"></span>
+            </div>
+            <strong id="gaugeText">100%</strong>
+          </section>
+        </div>
+      </header>
+
+      <section class="stage" aria-label="Rooms">
+        <nav class="room-nav" aria-label="Room navigation">
+          <button class="room-tab active" data-room-target="control" type="button">Control Room</button>
+          <button class="room-tab" data-room-target="mixroom" type="button">Energy mix office</button>
+          <button class="room-tab" data-room-target="weatherroom" type="button">Weather Station</button>
+          <button class="room-tab" data-room-target="laundry" type="button">Technical room</button>
+          <button class="room-tab" data-room-target="electrical" type="button">Final panel</button>
+        </nav>
+
+        <div class="room room-control active" data-room="control">
+          <div class="room-title">
+            <p class="eyebrow">Room 1</p>
+            <h2>Control Room</h2>
+          </div>
+          <button class="easter-egg easter-egg-control" data-egg-id="egg-mix" data-egg-number="1" type="button" aria-label="Hidden OpenAI easter egg in the control room">
+            <img src="assets/easter-openai.png" alt="">
+          </button>
+
+          <button class="hotspot hotspot-screen" data-puzzle="balance" type="button">
+            <span>Control screen</span>
+          </button>
+          <button class="door door-next" data-room-target="mixroom" type="button">Energy mix office</button>
+        </div>
+
+        <div class="room room-mixroom hidden-room" data-room="mixroom">
+          <div class="room-title">
+            <p class="eyebrow">Room 2</p>
+            <h2>Energy mix office</h2>
+          </div>
+          <button class="mix-info-marker mix-info-wind" type="button" aria-label="Share of wind power in the French electricity mix">
+            ?
+            <span class="mix-info-tooltip">Wind: 9.1% of the 2025 electricity mix</span>
+          </button>
+          <button class="mix-info-marker mix-info-nuclear" type="button" aria-label="Share of nuclear power in the French electricity mix">
+            ?
+            <span class="mix-info-tooltip">Nuclear: 68.1% of the 2025 electricity mix</span>
+          </button>
+          <button class="mix-info-marker mix-info-solar" type="button" aria-label="Share of solar power in the French electricity mix">
+            ?
+            <span class="mix-info-tooltip">Solar: 6.0% of the 2025 electricity mix</span>
+          </button>
+          <button class="mix-info-marker mix-info-hydro" type="button" aria-label="Share of hydropower in the French electricity mix">
+            ?
+            <span class="mix-info-tooltip">Hydro: 11.4% of the 2025 electricity mix</span>
+          </button>
+          <button class="easter-egg easter-egg-mix" data-egg-id="egg-laundry" data-egg-number="2" type="button" aria-label="Hidden Engie easter egg in the energy mix office">
+            <img src="assets/easter-engie.png" alt="">
+          </button>
+          <button class="hotspot hotspot-cards" data-puzzle="mix" type="button">
+            <span>Mix cards</span>
+          </button>
+          <button class="door door-prev" data-room-target="control" type="button">Control room</button>
+          <button class="door door-next" data-room-target="weatherroom" type="button">Weather Station</button>
+        </div>
+
+        <div class="room room-weatherroom hidden-room" data-room="weatherroom">
+          <div class="room-title">
+            <p class="eyebrow">Room 3</p>
+            <h2>Weather Station</h2>
+          </div>
+          <button class="hotspot hotspot-tablet" data-puzzle="weather" type="button">
+            <span>Weather tablet</span>
+          </button>
+          <button class="door door-prev" data-room-target="mixroom" type="button">Energy mix office</button>
+          <button class="door door-next" data-room-target="laundry" type="button">Technical room</button>
+        </div>
+
+        <div class="room room-laundry hidden-room" data-room="laundry">
+          <div class="room-title">
+            <p class="eyebrow">Room 4</p>
+            <h2>Technical room</h2>
+          </div>
+          <button class="tech-info-marker tech-info-washer" type="button" aria-label="Why shift the washing machine">
+            ?
+            <span class="tech-info-tooltip">Washing machine: 10% of flexible consumption.</span>
+          </button>
+          <button class="tech-info-marker tech-info-dryer" type="button" aria-label="Why shift the dryer">
+            ?
+            <span class="tech-info-tooltip">Dryer: 20% of flexible consumption.</span>
+          </button>
+          <button class="tech-info-marker tech-info-water" type="button" aria-label="Why shift the water heater">
+            ?
+            <span class="tech-info-tooltip">Water heater: 25% of flexible consumption.</span>
+          </button>
+          <button class="tech-info-marker tech-info-car" type="button" aria-label="Why shift EV charging">
+            ?
+            <span class="tech-info-tooltip">Car charging: 45% of flexible consumption.</span>
+          </button>
+          <button class="easter-egg easter-egg-laundry" data-egg-id="egg-control" data-egg-number="3" type="button" aria-label="Hidden book easter egg in the technical room">
+            <img src="assets/easter-super-pouvoir-ia.png" alt="">
+          </button>
+          <button class="hotspot hotspot-programmer" data-puzzle="offpeak" type="button">
+            <span>Scheduler</span>
+          </button>
+          <button class="door door-prev" data-room-target="weatherroom" type="button">Weather Station</button>
+          <button class="door door-next" data-room-target="electrical" type="button">Final panel</button>
+        </div>
+
+        <div class="room room-electrical hidden-room" data-room="electrical">
+          <div class="room-title">
+            <p class="eyebrow">Final room</p>
+            <h2>Electrical Panel</h2>
+          </div>
+          <button class="hotspot hotspot-final" data-puzzle="final" type="button">
+            <span>Electrical panel</span>
+          </button>
+          <button class="door door-prev" data-room-target="laundry" type="button">Technical room</button>
+        </div>
+      </section>
+
+      <aside class="side-panel" aria-label="Progress">
+        <section>
+          <h2>Code fragments</h2>
+          <div class="code-groups" id="codeSlots">
+            <div class="code-group code-group-main">
+              <p>Grid code</p>
+              <div class="code-slots">
+                <span>?</span>
+                <span>?</span>
+                <span>?</span>
+                <span>?</span>
+              </div>
+            </div>
+            <div class="code-group code-group-bonus">
+              <p>Hidden fragments</p>
+              <div class="code-slots code-slots-bonus">
+                <span>?</span>
+                <span>?</span>
+                <span>?</span>
+              </div>
+            </div>
+            <div class="final-code-preview">
+              <span>Final code</span>
+              <strong id="finalCodePreview">???????</strong>
+            </div>
+          </div>
+        </section>
+        <section class="jury-tools hidden" id="juryTools" aria-label="Jury presentation tools">
+          <h2>Jury mode</h2>
+          <p id="juryLesson">Choose a room to display its educational message.</p>
+          <p class="jury-room-label">Jump directly to room:</p>
+          <div class="jury-room-grid" aria-label="Direct room access">
+            <button data-jury-room="control" type="button" aria-label="Go to room 1">1</button>
+            <button data-jury-room="mixroom" type="button" aria-label="Go to room 2">2</button>
+            <button data-jury-room="weatherroom" type="button" aria-label="Go to room 3">3</button>
+            <button data-jury-room="laundry" type="button" aria-label="Go to room 4">4</button>
+            <button data-jury-room="electrical" type="button" aria-label="Go to final room">5</button>
+          </div>
+          <div class="jury-action-grid">
+            <button id="jurySolveCurrent" type="button">Solve this puzzle</button>
+            <button id="juryVictoryButton" type="button">Trigger victory</button>
+            <button class="jury-defeat-button" id="juryDefeatButton" type="button">Trigger defeat</button>
+          </div>
+        </section>
+        <section class="journal-section">
+          <h2>Logbook</h2>
+          <ul id="logList">
+            <li>The door is locked. Stabilize the grid.</li>
+          </ul>
+        </section>
+        <section class="guide-panel">
+          <h2>Compass</h2>
+          <p id="guideStep">Explore the rooms in order. Each puzzle teaches one simple idea about the grid.</p>
+        </section>
+      </aside>
+    </main>
+
+    <div class="discovery-toast hidden" id="discoveryToast" aria-live="polite">Hidden clue discovered.</div>
+
+    <div class="dialogue-layer hidden" id="dialogueLayer" role="dialog" aria-modal="true" aria-labelledby="dialogueSpeaker">
+      <section class="dialogue-bubble">
+        <div class="dialogue-avatar" aria-hidden="true">
+          <img src="assets/network-brain-logo.png" alt="">
+        </div>
+        <div class="dialogue-content">
+          <p class="eyebrow" id="dialogueSpeaker">Grid Dispatch</p>
+          <p id="dialogueText"></p>
+          <div class="dialogue-actions">
+            <button class="primary-button" id="dialogueNext" type="button">Got it</button>
+          </div>
+        </div>
+      </section>
+      <div class="dialogue-character" aria-hidden="true">
+        <div class="pixel-head">
+          <span class="pixel-cap">
+            <img src="assets/network-brain-logo.png" alt="">
+          </span>
+          <span class="pixel-cap-brim"></span>
+          <span class="pixel-hair"></span>
+          <span class="pixel-ear pixel-ear-left"></span>
+          <span class="pixel-ear pixel-ear-right"></span>
+          <span class="pixel-eye pixel-eye-left"></span>
+          <span class="pixel-eye pixel-eye-right"></span>
+          <span class="pixel-glasses pixel-glasses-left"></span>
+          <span class="pixel-glasses pixel-glasses-right"></span>
+          <span class="pixel-mouth"></span>
+          <span class="pixel-chin-line"></span>
+        </div>
+        <div class="pixel-body">
+          <span class="pixel-hand pixel-hand-left"></span>
+          <span class="pixel-hand pixel-hand-right"></span>
+        </div>
+        <div class="pixel-legs">
+          <span class="pixel-leg pixel-leg-left"></span>
+          <span class="pixel-leg pixel-leg-right"></span>
+          <span class="pixel-shoe pixel-shoe-left"></span>
+          <span class="pixel-shoe pixel-shoe-right"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-backdrop hidden" id="modalBackdrop">
+      <article class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button class="icon-button close-button" id="closeModal" type="button" aria-label="Close">x</button>
+        <p class="eyebrow" id="modalKicker">Puzzle</p>
+        <h2 id="modalTitle"></h2>
+        <div id="modalBody"></div>
+        <div class="modal-actions">
+          <button class="secondary-button" id="hintButton" type="button">Hint (-20 s)</button>
+          <button class="primary-button" id="submitButton" type="button">Submit</button>
+        </div>
+        <p class="feedback" id="feedback" aria-live="polite"></p>
+      </article>
+    </div>
+
+    <div class="end-screen hidden" id="endScreen" role="dialog" aria-modal="true">
+      <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+      <div>
+        <p class="eyebrow" id="endKicker"></p>
+        <h2 id="endTitle"></h2>
+        <div id="endText"></div>
+        <button class="primary-button" id="restartButton" type="button">Play again</button>
+      </div>
+    </div>
+
+    <script src="dialogues.js?v=english-version"></script>
+    <script src="puzzles.js?v=english-version"></script>
+    <script src="script.js?v=english-version"></script>
+  </body>
+</html>
